@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap-theme.css">
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- Include self defined css file -->
+    <link rel="stylesheet" href="../static/style.css">
+
 </head>
-<body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -29,18 +31,13 @@
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if userLoggedIn == True %}
-                    <li><a href="/addartist">Add Bathroom</a></li>
-                    <li><a href="/signout">Sign Out</a></li>
-                {% else %}
-                    <li><a href="#">Sign Up</a></li>
-                    <li><a href="#"></a>Log In</li>
-                {% endif %}
+                <li><a href="/addBathroom">Add Bathroom</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+{% block body %}
+{% endblock %}
 
-</body>
 </html>
