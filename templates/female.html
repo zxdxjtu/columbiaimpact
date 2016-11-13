@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h3>Filters</h3>
+        </div>
+        <div class="row">
+            <div class="bathroomList col-md-8">
+                {% if femaleBathrooms %}
+                    {% for bathroom in femaleBathrooms %}
+                        <hr>
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {{ bathroom.addressOne }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ bathroom.rating }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    {{ bathroom.url }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {{ bathroom.male }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ bathroom.female }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ bathroom.unisex }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ bathroom.babyChange }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ bathroom.wheelchairFriendly }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ bathroom.paymentRequired }}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                {% else %}
+                    <h4>Sorry, currently we don't have any data</h4>
+                {% endif %}
+            </div>
+
+            <div class="googleMap col-md-4" id="googleMapContainer">
+                <h4>Maps</h4>
+                <div id="googleMap"></div>
+            </div>
+        </div>
+    </div>
+
+
+<style>
+    #googleMap {
+        height: 800px;
+        width: 400px;
+    }
+</style>
+<script>
+    // Create socket
+    var socket;
+
+    // An array to store all markers
+    var googleMarkers = [];
+
+    function initMap() {
+        var initPosition = { lat: -25.363, lng: 131.044 };
+        var map = new google.maps.Map(document.getElementById('googleMap'), {
+            zoom: 3,
+            center: initPosition
+        });
+
+        socket = io.connect(null, {port: 5000, rememberTransport: false});
+
+        socket.on('connect', function() {
+           socket.send('Female');
+        });
+
+        socket.on('message', function(locations) {
+            var locations = JSON.parse(locations);
+
+            var latitudes = locations['latitude'];
+            var longitudes = locations['longitude'];
+
+            var length = latitudes.length;
+
+            for (var i = 0; i < length; i++) {
+                var lat = latitudes[i];
+                var lng = longitudes[i];
+                var markerPosition = {lat: lat, lng: lng};
+                var marker = new google.maps.Marker({
+                    position: markerPosition,
+                    map: map
+                });
+                googleMarkers.push(marker);
+            }
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7HpBJ6pCZGP7tjZd8nqUXqKjiZZ-zQ0M&callback=initMap">
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+{% endblock %}

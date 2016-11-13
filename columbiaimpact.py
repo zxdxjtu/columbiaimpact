@@ -51,21 +51,44 @@ def male():
 
     return render_template("male.html", **context)
 
+@app.route('/female')
+def female():
+
+    context = dict(femaleBathrooms = femaleBathrooms[:30])
+
+    return render_template("female.html", **context)
+
+@app.route('/unisex')
+def unisex():
+
+    context = dict(unisexBathrooms = unisexBathrooms[:30])
+
+    return render_template("unisex.html", **context)
+
 @socketio.on('message')
 def handle_connected(messagae):
     global maleBathrooms
     global femaleBathrooms
     global unisexBathrooms
 
+    locations = {}
+    locations['latitude'] = []
+    locations['longitude'] = []
     if messagae == 'Male':
-        locations = {}
-        locations['latitude'] = []
-        locations['longitude'] = []
         for bathroom in maleBathrooms[:30]:
             locations['latitude'].append(bathroom['latitude'])
             locations['longitude'].append(bathroom['longitude'])
-        locationsJOSN = json.dumps(locations)
-        send(locationsJOSN)
+    elif messagae == 'Female':
+        for bathroom in femaleBathrooms[:30]:
+            locations['latitude'].append(bathroom['latitude'])
+            locations['longitude'].append(bathroom['longitude'])
+    elif messagae == 'Unisex':
+        for bathroom in unisexBathrooms[:30]:
+            locations['latitude'].append(bathroom['latitude'])
+            locations['longitude'].append(bathroom['longitude'])
+
+    locationsJSON = json.dumps(locations)
+    send(locationsJSON)
 
 
 @app.route('/addBathroom', methods=['GET', 'POST'])
@@ -82,6 +105,17 @@ def add_bathroom():
         gender = request.form.getlist('gender')
 
         ratingsForBathroom = request.form['ratingsForBathroom']
+
+        male = False
+        female = False
+        unisex = Fasle
+        for entry in gender:
+            if entry == 'Male':
+                male = True
+            if entry == 'Female':
+                female = True
+            if entry == 'Unisex':
+                unisex = True
 
         # Find lat and lng of address using google map
         address = address.replace(",", " ")
@@ -111,6 +145,7 @@ def add_bathroom():
 
         print lat
         print lng
+
 
     context = dict()
 
