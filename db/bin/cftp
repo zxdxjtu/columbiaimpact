@@ -1,0 +1,10 @@
+#!/Users/shenzhu/Desktop/DBProject/db/bin/python2.7
+# EASY-INSTALL-ENTRY-SCRIPT: 'Twisted==16.5.0','console_scripts','cftp'
+__requires__ = 'Twisted==16.5.0'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('Twisted==16.5.0', 'console_scripts', 'cftp')()
+    )

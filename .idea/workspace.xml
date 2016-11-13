@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="82a953b4-c813-45cd-ab27-bd1988bed145" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/columbiaimpact.iml" afterPath="$PROJECT_DIR$/.idea/columbiaimpact.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/columbiaimpact.py" afterPath="$PROJECT_DIR$/columbiaimpact.py" />
-    </list>
+    <list default="true" id="82a953b4-c813-45cd-ab27-bd1988bed145" name="Default" comment="" />
     <ignored path="columbiaimpact.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -89,8 +85,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="48" />
-    <option name="y" value="47" />
+    <option name="x" value="-520" />
+    <option name="y" value="237" />
     <option name="width" value="1307" />
     <option name="height" value="751" />
   </component>
@@ -405,7 +401,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="48" y="47" width="1307" height="751" extended-state="0" />
+    <frame x="-520" y="237" width="1307" height="751" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2578424" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
