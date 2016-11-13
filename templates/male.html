@@ -19,6 +19,11 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-10">
+                                    {{ bathroom.url }}
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">
                                     {{ bathroom.male }}
                                 </div>
@@ -74,10 +79,10 @@
     var googleMarkers = [];
 
     function initMap() {
-        var columbia = {lat: 40.806, lng: -73.963};
+        var initPosition = { lat: -25.363, lng: 131.044 };
         var map = new google.maps.Map(document.getElementById('googleMap'), {
             zoom: 3,
-            center: columbia
+            center: initPosition
         });
 
         socket = io.connect(null, {port: 5000, rememberTransport: false});

@@ -121,7 +121,7 @@ def read_data():
     data = pd.read_csv(os.path.join(APP_STATIC, 'data.csv'))
     dataframe = pd.DataFrame(data, columns=['ToiletID', 'Address1', 'Male', 'Female', 'Unisex', 'AccessibleMale',
                                         'OpeningHoursSchedule', 'BabyChange', 'PaymentRequired', 'Latitude',
-                                        'Longitude', 'rating'])
+                                        'Longitude', 'rating', 'URL'])
     allBathrooms = []
     maleBathRooms = []
     femaleBathrooms = []
@@ -140,10 +140,12 @@ def read_data():
         Latitude = row['Latitude']
         Longitude = row['Longitude']
         rating = row['rating']
+        url = row['URL']
 
         tempDict = dict(toiletID = toiletID, addressOne = AddressOne, male = Male, female = Female, unisex = Unisex,
                         wheelchairFriendly = WheelchairFriendly, openingHours = OpeningHours, babyChange = BabyChange,
-                        paymentRequired = PaymentRequired, latitude = Latitude, longitude = Longitude, rating = rating)
+                        paymentRequired = PaymentRequired, latitude = Latitude, longitude = Longitude, rating = rating,
+                        url = url)
 
         if tempDict['male'] == True:
             maleBathRooms.append(tempDict)
