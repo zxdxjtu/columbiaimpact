@@ -2,56 +2,110 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <h3>Filters</h3>
+            <div class="col-md-3">
+                <label for="ifBabyChange">Baby Change</label>
+                <select name="ifBabyChange" id="ifBabyChange">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="ifWheelchair">Wheelchair Friendly</label>
+                <select name="ifWheelchair" id="ifWheelchair">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="ifFree">Free</label>
+                <select name="ifFree" id="ifFree">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary" id="selectButton">Filter</button>
+            </div>
         </div>
         <div class="row">
             <div class="bathroomList col-md-8">
                 {% if maleBathrooms %}
-                    {% for bathroom in maleBathrooms %}
-                        <hr>
-                        <div class="row">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    {{ bathroom.addressOne }}
+                    <ul class="list-group">
+                        {% for bathroom in maleBathrooms %}
+                            <li class="list-group-item list-group-item-success bathrooms">
+                                <div class="bathroom">
+                                    {#                            <hr>#}
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <b>Address: {{ bathroom.addressOne }} </b>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <b>Rating:{{ bathroom.rating }} </b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <b> <a href="{{ bathroom.url }}">Toilet Website</a> </b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                {% if bathroom.male == True %}
+                                                    <img width=40px height=60px
+                                                         src="data:image/png;base64,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"
+                                                         alt=""/>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {% if bathroom.female == True %}
+                                                    <img width=40px height=60px
+                                                         src="data:image/png;base64,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"
+                                                         alt=""/>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {% if bathroom.unisex == True %}
+                                                    <img width=40px height=60px
+                                                         src="data:image/png;base64,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"
+                                                         alt=""/>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-4" class="babyChange" value= {{ bathroom.babyChange }}>
+                                                {% if bathroom.babyChange %}
+                                                    <b>Baby Change: Yes</b>
+                                                {% else %}
+                                                    <b>Baby Change: No</b>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="col-md-4" class="wheelchair"
+                                                 value= {{ bathroom.wheelchairFriendly }}>
+                                                {% if bathroom.wheelchairFriendly %}
+                                                    <b>Wheelchair Friendly: Yes</b>
+                                                {% else %}
+                                                    <b>Wheelchair Friendly: No</b>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="col-md-4" class="free" value= {{ bathroom.paymentRequired }}>
+                                                {% if bathroom.paymentRequired %}
+                                                    <b>Payment Required: Yes</b>
+                                                {% else %}
+                                                    <b>Payment Required: No</b>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    {{ bathroom.rating }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-10">
-                                    {{ bathroom.url }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    {{ bathroom.male }}
-                                </div>
-                                <div class="col-md-4">
-                                    {{ bathroom.female }}
-                                </div>
-                                <div class="col-md-4">
-                                    {{ bathroom.unisex }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{ bathroom.babyChange }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{ bathroom.wheelchairFriendly }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{ bathroom.paymentRequired }}
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    {% endfor %}
+
+                            </li>
+                            <br>
+                        {% endfor %}
+                    </ul>
                 {% else %}
                     <h4>Sorry, currently we don't have any data</h4>
                 {% endif %}
@@ -65,55 +119,88 @@
     </div>
 
 
-<style>
-    #googleMap {
-        height: 800px;
-        width: 400px;
-    }
-</style>
-<script>
-    // Create socket
-    var socket;
+    <style>
+        #googleMap {
+            height: 800px;
+            width: 400px;
+        }
+    </style>
+    <script>
+        // Create socket
+        var socket;
 
-    // An array to store all markers
-    var googleMarkers = [];
+        // An array to store all markers
+        var googleMarkers = [];
 
-    function initMap() {
-        var initPosition = { lat: -25.363, lng: 131.044 };
-        var map = new google.maps.Map(document.getElementById('googleMap'), {
-            zoom: 3,
-            center: initPosition
-        });
+        function initMap() {
+            var initPosition = {lat: -25.363, lng: 131.044};
+            var map = new google.maps.Map(document.getElementById('googleMap'), {
+                zoom: 3,
+                center: initPosition
+            });
 
-        socket = io.connect(null, {port: 5000, rememberTransport: false});
+            socket = io.connect(null, {port: 5000, rememberTransport: false});
 
-        socket.on('connect', function() {
-           socket.send('Male');
-        });
+            socket.on('connect', function () {
+                socket.send('Male');
+            });
 
-        socket.on('message', function(locations) {
-            var locations = JSON.parse(locations);
+            socket.on('message', function (locations) {
+                var locations = JSON.parse(locations);
 
-            var latitudes = locations['latitude'];
-            var longitudes = locations['longitude'];
+                var latitudes = locations['latitude'];
+                var longitudes = locations['longitude'];
 
-            var length = latitudes.length;
+                var length = latitudes.length;
 
-            for (var i = 0; i < length; i++) {
-                var lat = latitudes[i];
-                var lng = longitudes[i];
-                var markerPosition = {lat: lat, lng: lng};
-                var marker = new google.maps.Marker({
-                    position: markerPosition,
-                    map: map
-                });
-                googleMarkers.push(marker);
+                for (var i = 0; i < length; i++) {
+                    var lat = latitudes[i];
+                    var lng = longitudes[i];
+                    var markerPosition = {lat: lat, lng: lng};
+                    var marker = new google.maps.Marker({
+                        position: markerPosition,
+                        map: map
+                    });
+                    googleMarkers.push(marker);
+                }
+            });
+        }
+
+        $('#selectButton').on('click', function () {
+            var ifBabyChange = document.getElementById('ifBabyChange');
+            var ifBabyChangeValue = ifBabyChange.options[ifBabyChange.selectedIndex].value;
+
+            var ifWheelchair = document.getElementById('ifWheelchair');
+            var ifWheelchairValue = ifWheelchair.options[ifWheelchair.selectedIndex].value;
+
+            var ifFree = document.getElementById('ifFree');
+            var ifFreeValue = ifFree.options[ifFree.selectedIndex].value;
+
+            console.log(ifBabyChangeValue);
+            console.log(ifWheelchairValue);
+            console.log(ifFreeValue);
+
+            var bathrooms = document.getElementsByClassName('bathrooms');
+            for (var i = 0; i < bathrooms.length; i++) {
+                var babyChange = document.getElementsByClassName('babyChange')[i].getAttribute('value');
+                var wheelchair = document.getElementsByClassName('wheelchair')[i].getAttribute('value');
+                var free = document.getElementsByClassName('paymentRequirement')[i].getAttribute('value');
+
+                console.log("EXECUTED");
+                console.log(babyChange);
+                console.log(wheelchair);
+                console.log(free);
+
+                if (babyChange != ifBabyChange || wheelchair != ifWheelchair || free != ifFree) {
+                    bathrooms[i].parentNode.removeElement(bathrooms[i]);
+                    console.log("EXECUTEDINNTER");
+                }
             }
         });
-    }
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7HpBJ6pCZGP7tjZd8nqUXqKjiZZ-zQ0M&callback=initMap">
-</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7HpBJ6pCZGP7tjZd8nqUXqKjiZZ-zQ0M&callback=initMap">
+    </script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 {% endblock %}
