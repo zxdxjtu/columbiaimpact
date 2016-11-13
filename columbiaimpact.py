@@ -16,6 +16,14 @@ def hello_world():
     return render_template("index.html", **context)
 
 
+@app.route('/male')
+def male():
+
+    context = dict()
+
+    return render_template("male.html", **context)
+
+
 @app.route('/addBathroom', methods=['GET', 'POST'])
 def add_bathroom():
 
@@ -45,7 +53,7 @@ def add_bathroom():
         responseJSON = json.loads(response.text)
         # location = responseJSON['results'][0]['geometry']['location']
         lat = responseJSON['results'][0]['geometry']['location']['lat']
-        lng = responseJSON['results'][0]['geometry']['loaction']['lng']
+        lng = responseJSON['results'][0]['geometry']['location']['lng']
 
         print address
         print openningHour
