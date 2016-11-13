@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row col-sm-10 col-md-4 col-md-offset-4 col-lg-3 col-lg-offset-2">
             <h3>Add Bathroom</h3>
-            <form name="addBathroom" action="/addBathroom" method="POST" onsubmit="return validateAddBathroom()">
+            <form name="addBathroomForm" action="/addBathroom" method="POST">
                 <div class="form-group">
                     <label for="address">Address</label>
                     <input type="text" class="form-control" id="address" name="address" placeholder="Address">
@@ -47,13 +47,13 @@
                 <label for="gender">Gender</label>
                 <div class="checkbox" id="gender">
                     <label>
-                        <input type="checkbox" name="male" value="Male"> Male
+                        <input type="checkbox" name="gender" value="Male" id="checkboxOne"> Male
                     </label>
                     <label>
-                        <input type="checkbox" name="female" value="Famale"> Female
+                        <input type="checkbox" name="gender" value="Famale" id="checkboxTwo"> Female
                     </label>
                     <label>
-                        <input type="checkbox" name="unisex" value="Unisex"> Unisex
+                        <input type="checkbox" name="gender" value="Unisex" id="checboxThree"> Unisex
                     </label>
                 </div>
 
@@ -62,19 +62,16 @@
                     <input type="number" step="any" placeholder="1-10" name="ratingsForBathroom">
                 </div>
 
-                <label for="feedback">Feedback</label>
-                <div class="form-group">
-                    <textarea class="form-control" rows="3" id="feedback" name="feedback"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button class="btn btn-default">Submit</button>
             </form>
         </div>
     </div>
 
     <script>
         function validateAddBathroom() {
-            var addBathoomForm = document.forms["addBathroom"];
+            var addBathoomForm = document.forms["addBathroomForm"];
+
+            return true;
         }
     </script>
 {% endblock %}
