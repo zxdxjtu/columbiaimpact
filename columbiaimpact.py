@@ -7,6 +7,7 @@ import pandas as pd
 import os
 import sys
 from flask_socketio import SocketIO, send
+from random import randrange
 
 
 reload(sys)
@@ -108,7 +109,7 @@ def add_bathroom():
 
         male = False
         female = False
-        unisex = Fasle
+        unisex = False
         for entry in gender:
             if entry == 'Male':
                 male = True
@@ -174,7 +175,7 @@ def read_data():
         PaymentRequired = row['PaymentRequired']
         Latitude = row['Latitude']
         Longitude = row['Longitude']
-        rating = row['rating']
+        rating = randrange(20, 100, 1) / 10.0
         url = row['URL']
 
         tempDict = dict(toiletID = toiletID, addressOne = AddressOne, male = Male, female = Female, unisex = Unisex,
