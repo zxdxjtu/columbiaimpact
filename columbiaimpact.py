@@ -6,6 +6,7 @@ import requests
 import pandas as pd
 import os
 import sys
+from flask_socketio import SocketIO, send
 
 
 reload(sys)
@@ -18,9 +19,25 @@ APP_STATIC = os.path.join(APP_ROOT, 'static')
 
 app = Flask(__name__)
 
+socketio = SocketIO(app)
+
+
+allBathrooms = []
+maleBathrooms = []
+femaleBathrooms = []
+unisexBathrooms = []
+
 
 @app.route('/')
 def hello_world():
+
+    global allBathrooms
+    global maleBathrooms
+    global femaleBathrooms
+    global unisexBathrooms
+
+    # Read data from file
+    allBathrooms, maleBathrooms, femaleBathrooms, unisexBathrooms = read_data()
 
     context = dict()
 
@@ -29,12 +46,26 @@ def hello_world():
 
 @app.route('/male')
 def male():
-    # Read data from file
-    allBathrooms, maleBathrooms, femaleBathrooms, unisexBathrooms = read_data()
 
     context = dict(maleBathrooms = maleBathrooms[:30])
 
     return render_template("male.html", **context)
+
+@socketio.on('message')
+def handle_connected(messagae):
+    global maleBathrooms
+    global femaleBathrooms
+    global unisexBathrooms
+
+    if messagae == 'Male':
+        locations = {}
+        locations['latitude'] = []
+        locations['longitude'] = []
+        for bathroom in maleBathrooms[:30]:
+            locations['latitude'].append(bathroom['latitude'])
+            locations['longitude'].append(bathroom['longitude'])
+        locationsJOSN = json.dumps(locations)
+        send(locationsJOSN)
 
 
 @app.route('/addBathroom', methods=['GET', 'POST'])
@@ -87,7 +118,7 @@ def add_bathroom():
 
 
 def read_data():
-    data = pd.read_csv(os.path.join(APP_STATIC, 'ToiletMap.csv'))
+    data = pd.read_csv(os.path.join(APP_STATIC, 'data.csv'))
     dataframe = pd.DataFrame(data, columns=['ToiletID', 'Address1', 'Male', 'Female', 'Unisex', 'AccessibleMale',
                                         'OpeningHoursSchedule', 'BabyChange', 'PaymentRequired', 'Latitude',
                                         'Longitude', 'rating'])
@@ -126,4 +157,4 @@ def read_data():
 
 
 if __name__ == '__main__':
-    app.run()
+    socketio.run(app, debug=True)
