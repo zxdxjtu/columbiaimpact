@@ -87,8 +87,23 @@
         });
 
         socket.on('message', function(locations) {
+            var locations = JSON.parse(locations);
 
-            console.log(locations);
+            var latitudes = locations['latitude'];
+            var longitudes = locations['longitude'];
+
+            var length = latitudes.length;
+
+            for (var i = 0; i < length; i++) {
+                var lat = latitudes[i];
+                var lng = longitudes[i];
+                var markerPosition = {lat: lat, lng: lng};
+                var marker = new google.maps.Marker({
+                    position: markerPosition,
+                    map: map
+                });
+                googleMarkers.push(marker);
+            }
         });
     }
 </script>
