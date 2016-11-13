@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-with, initial-scale = 1">
+
+    <title>Belp</title>
+
+    <!-- Include Bootstrap -->
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap-theme.css">
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Belp</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if userLoggedIn == True %}
+                    <li><a href="/addartist">Add Bathroom</a></li>
+                    <li><a href="/signout">Sign Out</a></li>
+                {% else %}
+                    <li><a href="#">Sign Up</a></li>
+                    <li><a href="#"></a>Log In</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+</body>
+</html>
